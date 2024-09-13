@@ -37,9 +37,12 @@ public class Sec {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService(UserDe userDe){
-        return userDe;
-    }
+   @Bean
+   public AuthenticationProvider authenticationProvider(){
+    DaoAuthenticationProvider daoAuthenticationProvider=new DaoAuthenticationProvider();
+    daoAuthenticationProvider.setUserDetailsService(userDe);
+    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+    return daoAuthenticationProvider;
+   }
     
 }
