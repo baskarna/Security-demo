@@ -22,6 +22,18 @@ public class DemoController {
         return service.saveUser(users);
     }
     
+     @PostMapping("/log")
+    public String log(@RequestBody Log log){
+        try{
+        Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(log.getUsername(), log.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return "Good Username"+log.getUsername() ;
+        }catch(Exception e){
+            return "error";
+        }
+       
+    }
+    
     @GetMapping("/greet")
     public String greet(){
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
